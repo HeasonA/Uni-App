@@ -1,0 +1,1 @@
+<view class=""><view class="chengs"> 地区:{{a}}</view><view class="obsTime"> 时间:{{b}}</view><view class="tianqi"> 天气:{{c}}</view><view class="wendu"> 温度:{{d}}</view><view class="fengxiang"> 风向:{{e}}</view></view><button bindtap="{{f}}">更新天气</button>

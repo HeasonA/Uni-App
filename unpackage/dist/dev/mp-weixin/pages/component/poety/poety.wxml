@@ -1,0 +1,1 @@
+<view class=""><view class="poeTy"> 诗句:{{a}}</view><view class="laiYuan"> 出处:{{b}}</view><button bindtap="{{c}}">刷新诗句</button></view>

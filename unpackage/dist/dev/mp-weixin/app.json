@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/tabBar/api/api",
+    "pages/tabBar/component/component",
+    "pages/index/index",
+    "pages/component/view/view",
+    "pages/tabBar/shangbao/shangbao",
+    "pages/component/lianjie/lianjie",
+    "pages/component/poety/poety"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "手机APP",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "backgroundColor": "#F8F8F8",
+    "color": "#8F8F94",
+    "list": [
+      {
+        "text": "主页",
+        "pagePath": "pages/tabBar/component/component",
+        "iconPath": "static/首页1.png",
+        "selectedIconPath": "static/首页.png"
+      },
+      {
+        "text": "问题上报",
+        "pagePath": "pages/tabBar/shangbao/shangbao",
+        "iconPath": "static/监管上报.png",
+        "selectedIconPath": "static/监管上报_fill.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/tabBar/api/api",
+        "iconPath": "static/我的.png",
+        "selectedIconPath": "static/我的2.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

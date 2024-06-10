@@ -1,0 +1,1 @@
+<view class="content"><checkbox-group bindchange="{{a}}"><checkbox value="ab1">一等奖:</checkbox><checkbox value="ab2"> 二等奖:</checkbox><checkbox value="ab3">三等奖:</checkbox></checkbox-group></view><view><button bindtap="{{b}}">点击抽奖</button></view><view></view>

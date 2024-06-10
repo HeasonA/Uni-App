@@ -1,0 +1,76 @@
+
+.swiper-container {
+		width: 100%;
+		padding-bottom: 20px;
+}
+.swiper-image {
+		width: 100%;
+		display: block;
+}
+.scroll-item {
+		position: relative;
+		border-radius: 10px;
+		background-image: url('../../../static/地图.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		padding: 50px;
+		margin-top: 10px;
+		margin-right: 10px;
+		margin-left: 25px;
+		background-color: #5500ff;
+		text-align: center;
+}
+.scroll-item-1 {
+		position: relative;
+		border-radius: 10px;
+		background-image: url('../../../static/校园.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		padding: 50px;
+		margin-right: 10px;
+		margin-left: 10px;
+		background-color: #55aaff;
+		text-align: center;
+}
+.scroll-item-2 {
+		position: relative;
+		border-radius: 10px;
+		background-image: url('../../../static/客服办公.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		padding: 50px;
+		margin-top: 10px;
+		margin-right: 10px;
+		margin-left: 25px;
+		background-color: #5555ff;
+		text-align: center;
+}
+.custom-font {
+		position: absolute;
+		top: 10px;
+		left: 30px;
+		place-items: center;
+		font-size: 17px;
+		font-weight: bold;
+		color: #ffffff;
+}
+.marquee-style {
+		margin-top: 0px;
+		font-size: 16px;
+		color: #333;
+		padding: 10px;
+		background-color: #c6d7f3;
+}
+.text-style {
+		font-weight: bold;
+		text-decoration: underline;
+}

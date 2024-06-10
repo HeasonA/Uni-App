@@ -1,0 +1,1 @@
+<view class="progress-con"><progress percent="{{a}}" show-info></progress><button bindtap="{{b}}">增加进度</button><button bindtap="{{c}}">清空进度</button></view>
