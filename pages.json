@@ -1,0 +1,98 @@
+{
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabBar/api/api",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		}, {
+			"path": "pages/tabBar/component/component",
+			"style": {
+				"navigationBarTitleText": "XX城市"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {}
+		},
+		{
+			"path": "pages/component/view/view",
+			"style": {
+				"navigationBarTitleText": "校园地图"
+			}
+
+		}, {
+			"path": "pages/tabBar/shangbao/shangbao",
+			"style": {
+				"navigationBarTitleText": "拍照上传"
+
+			}
+
+		}, {
+			"path": "pages/component/lianjie/lianjie",
+			"style": {
+				"navigationBarTitleText": "校园新闻"
+			}
+
+		}, {
+			"path": "pages/component/poety/poety",
+			"style": {
+				"navigationBarTitleText": "客服咨询"
+			}
+
+		}, {
+			"path": "pages/component/Photograph/Photograph",
+			"style": {
+				"navigationBarTitleText": "拍照上传",
+				"app-plus": {
+					"permission": {
+						"Camera": "write"
+					}
+				}
+			}
+
+		}, {
+			"path": "pages/component/dl/dl",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+
+		}, {
+			"path": "pages/component/reward/reward",
+			"style": {
+				"navigationBarTitleText": "积分排行"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "手机APP",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"backgroundColor": "#F8F8F8",
+		"color": "#8F8F94",
+		"list": [{
+				"text": "主页",
+				"pagePath": "pages/tabBar/component/component",
+				"iconPath": "static/首页1.png",
+				"selectedIconPath": "static/首页.png"
+			},
+			{
+				"text": "拍照上报",
+				"pagePath": "pages/tabBar/shangbao/shangbao",
+				"iconPath": "static/拍照1.png",
+				"selectedIconPath": "static/拍照.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/tabBar/api/api",
+				"iconPath": "static/我的.png",
+				"selectedIconPath": "static/我的2.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

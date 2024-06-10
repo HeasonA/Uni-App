@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<style type="text/css">
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+
+			#allmap {
+				height: 500px;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			#result {
+				height: calc(100% - 610px);
+				width: 100%;
+				font-size: 12px;
+			}
+
+			#resultText {
+				height: 70px;
+				font-size: 18px;
+				padding: 6px;
+			}
+
+			#r-result {
+				height: 40px;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-bottom: #A9A9A9 1px solid;
+				margin-bottom: 2px;
+				margin-top: 3px;
+			}
+
+			.btn {
+				width: 100px;
+				height: 34px;
+				border: 1px solid #999;
+				border-radius: 5px;
+				margin: 0 auto;
+				font-size: 18px;
+				text-align: center;
+				line-height: 34px;
+				color: #333;
+				background: #E8E7E3;
+			}
+		</style>
+		<!-- 引入百度地图api 携带 AK -->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=QK38vtIcCcYkWApjRIA0HbuXdyb8nk7Z">
+		</script>
+		<!-- 引入搜索功能 -->
+		<script type="text/javascript"
+			src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+		<link rel="stylesheet"
+			href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+		<!-- 引入 uni-app 的 SDK -->
+		<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js">
+		</script>
+		<title>选择地址</title>
+	</head>
+
+	<body>
+		<!--
+	顶部搜索栏：包含一个文本框，允许用户输入要搜索的位置。
+	地图容器：一个 div 元素，用于显示地图。
+	位置回显：显示用户选中的位置信息和“确定地点”按钮。-->
+		<!-- 顶部搜索栏 -->
+		<div id="search">
+			<div id="r-result"><input type="text" id="suggestId" size="20" placeholder="位置搜索" value="百度"
+					style="width:100%;height:40px;" /></div>
+			<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+		</div>
+		<!-- 地图 -->
+		<div id="allmap"></div>
+		<!-- 选中的位置回显 -->
+		<div id="result">
+			<div id="resultText"></div>
+			<div class="btn">确定地点</div>
+		</div>
+
+		<script type="text/javascript">
+			document.write('<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"><\/script>');
+			//首先，创建一个地图实例，关联到页面中的 allmap 容器。
+			//然后，设置地图的中心点坐标和缩放级别。
+			var map = new BMap.Map('allmap');
+			var poi = new BMap.Point(116.307852, 40.057031); //罗马的坐标
+
+			var addressPost; //存储附近信息数据
+			var CURRENT_LNG; //记录坐标
+			var CURRENT_LAT; //记录坐标
+			var lng, lat; //记录坐标
+
+			map.centerAndZoom(poi, 18); //设置地图中心点 和 缩放等级
+			map.enableScrollWheelZoom(); //开启鼠标滚轮
+
+			function G(id) {
+				return document.getElementById(id);
+			}
+			//使用 BMap.Geolocation 对象获取当前位置的坐标。
+			//在地图上添加一个标记表示当前位置。
+			var geoc = new BMap.Geocoder();
+			var getCurrentLocation = function(lg, lt) {
+				//geoc.getLocation 获取到 坐标 以及 包含附近地址信息的数组
+				geoc.getLocation(new BMap.Point(lg, lt), function(rs) {
+					//取数组第一个地址信息为选中的位置，也可现为地址列表
+					var nearbyAddeessArr = rs.surroundingPois[0];
+					document.getElementById('resultText').innerText = '当前位置 ：' + nearbyAddeessArr.title + '——' +
+						nearbyAddeessArr.address;
+					addressPost = nearbyAddeessArr.title + '——' + nearbyAddeessArr.address;
+					CURRENT_LNG = lg;
+					CURRENT_LAT = lt;
+				});
+			}
+
+
+			//通过浏览器获取当前定位的坐标
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r) {
+				if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					map.panTo(r.point);
+					lng = r.point.lng
+					lat = r.point.lat
+					getCurrentLocation(lng, lat)
+				} else {
+					alert('failed' + this.getStatus());
+				}
+			}, {
+				enableHighAccuracy: true
+			})
+
+			//给地图添加点击事件 标记 marker
+			map.addEventListener("touchstart", function(e) {
+				map.clearOverlays(); //清除地图上所有覆盖物 marker
+				//获取坐标
+				var lng = e.point.lng;
+				var lat = e.point.lat;
+
+				//创建marker标注位置
+				var pt = new BMap.Point(lng, lat);
+				//new BMap.Icon("本地marker图标路径",图标的尺寸,{marker偏移量,窗口的偏移量})
+				var myIcon = new BMap.Icon("https://mapopen-website-wiki.cdn.bcebos.com/markers.png", new BMap.Size(19,
+					25), {
+					anchor: new BMap.Size(10, 25),
+					imageOffset: new BMap.Size(0, 0 - 12 * 25)
+				});
+				var marker2 = new BMap.Marker(pt, {
+					icon: myIcon
+				}); // 创建标注实例
+				map.addOverlay(marker2); //将标注添加到地图中
+				getCurrentLocation(lng, lat)
+			});
+
+			// 以下是地点检索功能
+
+			//创建一个search实例
+			var ac = new BMap.Autocomplete({
+				"input": "suggestId",
+				"location": map
+			});
+
+
+			var myValue; //存储地址检索结果
+			ac.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
+				var _value = e.item.value;
+				myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+				G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " +
+					myValue;
+				setPlace();
+			});
+
+			// 地图移动到检索的位置，并且标记
+			function setPlace() {
+				map.clearOverlays(); //清除地图上所有覆盖物
+				function myFun() {
+					var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+					map.centerAndZoom(pp, 18);
+					map.addOverlay(new BMap.Marker(pp)); //添加标注
+					getCurrentLocation(pp.lng, pp.lat)
+				}
+				var local = new BMap.LocalSearch(map, { //智能搜索
+					onSearchComplete: myFun
+				});
+				local.search(myValue);
+			}
+
+			//确定地址 将数据传输到 uniapp 的 webview内
+			document.addEventListener('UniAppJSBridgeReady', function() {
+				//uniapp 挂载完毕，在内部可以使用uniapp 部分 api,具体看 官方文档 webview
+				document.querySelector('.btn').addEventListener('touchstart', function() {
+					uni.postMessage({
+						data: {
+							addressPost,
+							CURRENT_LNG,
+							CURRENT_LAT
+						}
+					});
+				})
+
+			});
+		</script>
+	</body>
+
+</html>
