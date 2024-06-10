@@ -1,0 +1,40 @@
+.component {
+	display: flex;
+	padding: 10rpx;
+	width: 60rpx;
+	height: 60rpx;
+	margin: 0 10rpx;
+}
+
+.same1 {
+	float: right;
+}
+
+.same {
+	width: 500rpx;
+	border: 1px solid #595959;
+	border-radius: 10px;
+	float: 1;
+	padding-left: 5rpx;
+	display: flex;
+}
+
+.smae-shitu {
+	margin-bottom: 12px;
+}
+
+.smae-shitu-2 {
+	background-color: #f1f1f1;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 12px;
+	flex-direction: row;
+}
+
+.smae-shitu-3 {
+	background-color: #ffffff;
+	flex-direction: row;
+	align-items: center;
+	padding: 12px;
+	margin-bottom: 2px;
+}
